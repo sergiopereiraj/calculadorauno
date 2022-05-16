@@ -57,6 +57,63 @@ class Calc():
         self.check_sum = True
         self.op = op
         self.result = False
+    
+    def valid_function(self):
+        if self.op == "add":
+            self.total += self.current
+        if self.op == "sub":
+            self.total -= self.current
+        if self.op == "multi":
+            self.total *= self.current
+        if self.op == "divide":
+            self.total /= self.current
+        if self.op == "mod":
+            self.total %= self.current
+        self.input_value = True
+        self.check_sum = False
+        self.display(self.total)
+    
+    def Clear_Entry(self):
+        self.result = False
+        self.current = "0"
+        self.display(0)
+        self.input_value = True
+
+    def all_Clear_Entry(self):
+        self.Clear_Entry()
+        self.total= 0
+
+    def delectBS(self):
+        numLen = (txtDisplay.get())
+        txtDisplay.delete(numLen - 1, 'end')
+        if numLen == 1:
+            txtDisplay.insert(0, "0")
+    
+    def mathsPM(self):
+        self.result = False
+        self.current = -(float)(txtDisplay.get())
+        self.display(self.current)
+    
+    def squared(self):
+        self.result = False
+        self.current = math.sqrt(float(txtDisplay.get()))
+        self.display(self.current)
+    
+    def cos(self):
+        self.result = False
+        self.current = math.cos(math.radians(float(txtDisplay.get())))
+        self.display(self.current)
+    
+    def tan(self):
+        self.result = False
+        self.current = math.cos(math.radians(float(txtDisplay.get())))
+        self.display(self.current)
+    
+    def sin(self):
+        self.result = False
+        self.current = math.sin(math.radians(float(txtDisplay.get())))
+        self.display(self.current)
+
 
 added_value = Calc()
 # caja de texto
@@ -79,23 +136,23 @@ for j in range (3, 6):
 
 # Botones Acciones
 # ============================================================================================================================================
-btnDelete = Button(calc, width=6, height=2, text= "DEL", font= ('arial', 16, 'bold'), bd=4, bg="gainsboro").grid(row = 1, column= 0, pady=1)
-btnClear = Button(calc, width=6, height=2, text= "C", font= ('arial', 16, 'bold'), bd=4, bg="gainsboro").grid(row = 1, column= 1, pady=1)
-btnClearAll = Button(calc, width=6, height=2, text= "CE", font= ('arial', 16, 'bold'), bd=4, bg="gainsboro").grid(row = 1, column= 2, pady=1)
-btnPM = Button(calc, width=6, height=2, text= chr(177), font= ('arial', 16, 'bold'), bd=4, bg="gainsboro").grid(row = 1, column= 3, pady=1)
+btnDelete = Button(calc, width=6, height=2, text= "DEL", font= ('arial', 16, 'bold'), bd=4, bg="gainsboro", command= added_value.delectBS).grid(row = 1, column= 0, pady=1)
+btnClear = Button(calc, width=6, height=2, text= "C", font= ('arial', 16, 'bold'), bd=4, bg="gainsboro", command= added_value.Clear_Entry).grid(row = 1, column= 1, pady=1)
+btnClearAll = Button(calc, width=6, height=2, text= "CE", font= ('arial', 16, 'bold'), bd=4, bg="gainsboro", command= added_value.all_Clear_Entry).grid(row = 1, column= 2, pady=1)
+btnPM = Button(calc, width=6, height=2, text= chr(177), font= ('arial', 16, 'bold'), bd=4, bg="gainsboro", command= added_value.mathsPM).grid(row = 1, column= 3, pady=1)
 # ============================================================================================================================================
-btnSq = Button(calc, width=6, height=2, text= "√", font= ('arial', 16, 'bold'), bd=4, bg="gainsboro").grid(row = 2, column= 0, pady=1)
-btnCos = Button(calc, width=6, height=2, text= "Cos", font= ('arial', 16, 'bold'), bd=4, bg="gainsboro").grid(row = 2, column= 1, pady=1)
-btnTan = Button(calc, width=6, height=2, text= "Tan", font= ('arial', 16, 'bold'), bd=4, bg="gainsboro").grid(row = 2, column= 2, pady=1)
-btnSin= Button(calc, width=6, height=2, text= "Sin", font= ('arial', 16, 'bold'), bd=4, bg="gainsboro").grid(row = 2, column= 3, pady=1)
+btnSq = Button(calc, width=6, height=2, text= "√", font= ('arial', 16, 'bold'), bd=4, bg="gainsboro", command= added_value.squared).grid(row = 2, column= 0, pady=1)
+btnCos = Button(calc, width=6, height=2, text= "Cos", font= ('arial', 16, 'bold'), bd=4, bg="gainsboro", command= added_value.cos).grid(row = 2, column= 1, pady=1)
+btnTan = Button(calc, width=6, height=2, text= "Tan", font= ('arial', 16, 'bold'), bd=4, bg="gainsboro", command= added_value.tan).grid(row = 2, column= 2, pady=1)
+btnSin= Button(calc, width=6, height=2, text= "Sin", font= ('arial', 16, 'bold'), bd=4, bg="gainsboro", command= added_value.sin).grid(row = 2, column= 3, pady=1)
 # ============================================================================================================================================
-btnAdd = Button(calc, width=6, height=2, text= "+", font= ('arial', 16, 'bold'), bd=4, bg="gainsboro", command= added_value.operation).grid(row = 3, column= 3, pady=1)
-btnSub = Button(calc, width=6, height=2, text= "-", font= ('arial', 16, 'bold'), bd=4, bg="gainsboro", command= added_value.operation).grid(row = 4, column= 3, pady=1)
-btnMul = Button(calc, width=6, height=2, text= "*", font= ('arial', 16, 'bold'), bd=4, bg="gainsboro", command= added_value.operation).grid(row = 5, column= 3, pady=1)
-btnDiv= Button(calc, width=6, height=2, text= chr(247), font= ('arial', 16, 'bold'), bd=4, bg="gainsboro", command= added_value.operation).grid(row = 6, column= 3, pady=1)
+btnAdd = Button(calc, width=6, height=2, text= "+", font= ('arial', 16, 'bold'), bd=4, bg="gainsboro", command= lambda: added_value.operation("add")).grid(row = 3, column= 3, pady=1)
+btnSub = Button(calc, width=6, height=2, text= "-", font= ('arial', 16, 'bold'), bd=4, bg="gainsboro", command= lambda: added_value.operation("sub")).grid(row = 4, column= 3, pady=1)
+btnMul = Button(calc, width=6, height=2, text= "*", font= ('arial', 16, 'bold'), bd=4, bg="gainsboro", command= lambda: added_value.operation("multi")).grid(row = 5, column= 3, pady=1)
+btnDiv= Button(calc, width=6, height=2, text= chr(247), font= ('arial', 16, 'bold'), bd=4, bg="gainsboro", command= lambda: added_value.operation("divide")).grid(row = 6, column= 3, pady=1)
 # ============================================================================================================================================
-btnZero = Button(calc, width=6, height=2, text= "0", font= ('arial', 16, 'bold'), bd=4, bg="gainsboro", command=added_value.numberEnter()).grid(row = 6, column= 0, pady=1)
-btnDot = Button(calc, width=6, height=2, text= ".", font= ('arial', 16, 'bold'), bd=4, bg="gainsboro", command=added_value.numberEnter()).grid(row = 6, column= 1, pady=1)
+btnZero = Button(calc, width=6, height=2, text= "0", font= ('arial', 16, 'bold'), bd=4, bg="gainsboro", command=added_value.numberEnter).grid(row = 6, column= 0, pady=1)
+btnDot = Button(calc, width=6, height=2, text= ".", font= ('arial', 16, 'bold'), bd=4, bg="gainsboro", command=added_value.numberEnter).grid(row = 6, column= 1, pady=1)
 btnEquals = Button(calc, width=6, height=2, text= "=", font= ('arial', 16, 'bold'), bd=4, bg="gainsboro", command=added_value.sum_of_total).grid(row = 6, column= 2, pady=1)
 
 root.mainloop()
